@@ -8,7 +8,7 @@
 
 ## 🔗 Try It Out
 
-### [📂 View Code](https://StephenXdD/your-username/the-one-protocol)
+### [📂 View Code]([https://StephenXdD/your-username/the-one-protocol](https://github.com/StephenXdD/the-one-protocol))
 
 ---
 
