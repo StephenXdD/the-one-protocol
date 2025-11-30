@@ -2,7 +2,7 @@
 
 > **"Wake up, Neo..."**
 
-**The One Protocol** is an immersive, browser-based terminal simulator that gamifies the plot of *The Matrix*. It combines retro aesthetics, real-time procedural animation, and cloud persistence to determine if you have what it takes to be The One.
+**The One Protocol** is an immersive, browser-based terminal simulator that gamifies the plot of *The Matrix*. It combines retro aesthetics, real-time procedural animation, and cloud persistence logic to determine if you have what it takes to be The One.
 
 ---
 
@@ -37,7 +37,7 @@ We were inspired by the aesthetic of late 90s cyberpunk—the glowing green CRT 
 It guides the user through 8 distinct stages of the movie storyline via a command-line interface:
 1.  **Visual Simulation:** Renders procedurally generated "Digital Rain" (HTML5 Canvas) and mimics a retro CRT monitor with CSS scanlines and flicker.
 2.  **Audio Immersion:** Utilizes the **Web Speech API** for robotic Text-to-Speech and **Tone.js** for dynamic sci-fi synth sounds on every keystroke.
-3.  **Cloud Persistence:** Integrates with **Firebase Firestore** to log "Mission Reports," creating a permanent record of every user's success or failure.
+3.  **Cloud Persistence Logic:** The codebase includes a full integration with **Firebase Firestore** to log "Mission Reports," capable of creating a permanent record of every user's success or failure.
 
 ### How we built it
 We made a conscious decision to stick to **Vanilla JavaScript** to maintain raw control over the DOM and performance, avoiding the overhead of heavy frameworks for what is essentially a high-performance visual and audio demo.
@@ -61,25 +61,13 @@ To run this project locally on your machine:
     cd the-one-protocol
     ```
 
-2.  **Open `index.html`**
+2.  **Run the Simulation**
     * Simply double-click `index.html` to open it in your browser.
     * *Note: For the best experience (and to avoid CORS issues with some browsers), usage of the "Live Server" extension in VS Code is recommended.*
 
-3.  **Configure Firebase**
-    * Open `index.html` in your code editor.
-    * Locate the `<script type="module">` section.
-    * Replace the `firebaseConfig` placeholder code with your own Firebase project keys:
-    ```javascript
-    // Replace the placeholder config with your actual details:
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT.appspot.com",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
-    ```
+3.  **Optional: Enable Cloud Saving**
+    * By default, the simulation runs in "Local Mode" (no data saving).
+    * To enable the global Mission Log, open `index.html` in a code editor and replace the empty `firebaseConfig` object with your own Firebase API keys.
 
 ---
 
