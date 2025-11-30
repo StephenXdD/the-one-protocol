@@ -1,7 +1,5 @@
 # The One Protocol
 
-![The One Protocol Banner](file:///C:/Users/Dev%20Joshi/Desktop/CS%20Courses/CineHack/The%20One%20Protocol.jpg)
-
 > **"Wake up, Neo..."**
 
 **The One Protocol** is an immersive, browser-based terminal simulator that gamifies the plot of *The Matrix*. It combines retro aesthetics, real-time procedural animation, and cloud persistence to determine if you have what it takes to be The One.
