@@ -8,6 +8,8 @@
 
 ## 🔗 Try It Out
 
+### [🔴 Live Demo](https://stephenxdd.github.io/the-one-protocol/)
+
 ### [📂 View Code](https://github.com/StephenXdD/the-one-protocol)
 
 ---
@@ -55,7 +57,7 @@ To run this project locally on your machine:
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/your-username/the-one-protocol.git](https://github.com/your-username/the-one-protocol.git)
+    git clone [https://github.com/StephenXdD/the-one-protocol.git](https://github.com/StephenXdD/the-one-protocol.git)
     cd the-one-protocol
     ```
 
