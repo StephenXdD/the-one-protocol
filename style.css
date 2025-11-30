@@ -1,0 +1,128 @@
+/* Apply the 'Matrix' aesthetic to the entire page */
+:root {
+    --matrix-green: #00FF41; /* Iconic neon green color */
+    --matrix-black: #000000;
+}
+
+body {
+    background-color: var(--matrix-black);
+    color: var(--matrix-green);
+    /* Use the terminal-style font linked in index.html */
+    font-family: 'VT323', monospace; 
+    font-size: 1.2em;
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars, the canvas covers everything */
+    /* Add a subtle green text shadow to all text for the neon glow */
+    text-shadow: 0 0 5px var(--matrix-green); 
+}
+
+/* --- Canvas for the Digital Rain --- */
+#matrix-canvas {
+    position: fixed; /* Keep it in the background */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Ensure it stays behind the terminal */
+}
+
+/* --- Terminal Container (The main box) --- */
+#terminal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
+    width: 80%;
+    max-width: 700px;
+    padding: 20px;
+    border: 2px solid var(--matrix-green);
+    /* Stronger outer bloom for a neon look */
+    box-shadow: 
+        0 0 5px var(--matrix-green), /* Soft inner glow */
+        0 0 20px var(--matrix-green); /* Stronger outer bloom */
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
+    
+    /* Required for scan line pseudo-element and flicker animation */
+    position: relative; 
+    overflow: hidden; 
+    
+    /* CRT Monitor Flickering Effect */
+    animation: flicker 0.1s infinite alternate; 
+}
+
+/* --- Keyframe for the Flicker Effect --- */
+@keyframes flicker {
+    0% { opacity: 1; }
+    4% { opacity: 0.95; }
+    8% { opacity: 1; }
+    12% { opacity: 0.98; }
+    16% { opacity: 1; }
+    20% { opacity: 0.9; }
+    24% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+
+/* --- CRT Monitor Scan Line Effect --- */
+#terminal-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Create thin green horizontal lines using a repeating linear gradient */
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 65, 0.05),
+        rgba(0, 0, 0, 0.5) 1px,
+        rgba(0, 0, 0, 0.9) 2px 
+    );
+    z-index: 99; 
+    pointer-events: none;
+    /* Animate the scan lines to move slowly down the screen */
+    animation: scan-move 5s linear infinite; 
+}
+
+/* Define the animation for the rolling scan line */
+@keyframes scan-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 500px; }
+}
+
+/* --- Output and Input Styling --- */
+header, #output-area {
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+}
+
+.prompt {
+    flex-shrink: 0;
+    margin-right: 5px;
+}
+
+#input-line {
+    display: flex;
+    align-items: center;
+}
+
+
+#user-input {
+    flex-grow: 1; 
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--matrix-green);
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: var(--matrix-green); 
+    padding: 0;
+}
+
+.user-query {
+    color: #999; /* Faded green for user input in output history */
+}
+
+/* Styling for story elements/commands to stand out */
+strong {
+    color: #00FFC0; /* A brighter teal/cyan green for commands */
+    font-weight: normal; /* Keep the monospace look */
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Matrix Terminal - The One Simulation</title>
+    <!-- Link to the custom font for that terminal look -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- Link to your custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- TONE.JS AUDIO LIBRARY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+</head>
+<body>
+
+    <!-- 1. The Canvas for the Digital Rain Background -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- 2. The Main Terminal Interface -->
+    <div id="terminal-container">
+        <header>
+            <p>// MORPHEUS COMMS v5.0 // INITIATING CONTACT //</p>
+        </header>
+        
+        <!-- Area where the Oracle's answers and story text appear -->
+        <div id="output-area">
+            <p>> Loading System. Type 'RESET' to begin the simulation...</p>
+        </div>
+
+        <!-- The User Input Line -->
+        <div id="input-line">
+            <span class="prompt">// STAGE 0 // COMMAND ></span>
+            <input type="text" id="user-input" autofocus placeholder="Type your command... (e.g., 'ACCEPT')" onkeydown="handleInput(event)">
+        </div>
+    </div>
+
+    <!-- FIREBASE INITIALIZATION & AUTHENTICATION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, collection, addDoc, query, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Initialize Firebase Global Variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            const auth = getAuth(app);
+            
+            // Expose globals for script.js to access
+            window.db = db;
+            window.auth = auth;
+            window.appId = appId;
+
+            // Sign in logic
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) {
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        console.error("Firebase Sign-In Error:", error);
+                    }
+                } else {
+                    window.userId = user.uid;
+                    console.log("User Authenticated:", window.userId);
+                }
+            });
+        } else {
+            console.warn("Firebase configuration not available. Mission Log will not be saved.");
+        }
+    </script>
+    
+    <!-- Link to your main JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
